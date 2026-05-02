@@ -1,229 +1,128 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT Project | Password Security</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Password Security Project</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 min-h-screen font-sans text-gray-800">
+<body class="bg-gray-100 font-sans">
 
-  <!-- Header -->
-  <header class="bg-white shadow fixed w-full top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold text-blue-700">🔐 It Project</div>
-      <nav class="space-x-6 hidden md:flex">
-        <a href="#home" class="hover:text-blue-600 transition">Home</a>
-        <a href="#generate" class="hover:text-blue-600 transition">Generate</a>
-        <a href="#strength" class="hover:text-blue-600 transition">Analyze</a>
-      </nav>
-    </div>
-  </header>
+<!-- Header -->
+<header class="bg-blue-600 text-white p-4 text-center text-xl font-bold">
+  🔐 Password Security Project
+</header>
 
-  <!-- Landing Section -->
-  <section id="home" class="flex items-center justify-center min-h-screen pt-20 px-6">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-      <div>
-        <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-6 leading-tight">
-          Protect Your Digital Identity <br />with Strong Passwords
-        </h1>
-        <p class="text-gray-700 mb-6 text-lg">
-          Welcome to <strong>IT Project</strong> — your trusted partner for creating strong, secure passwords and testing their strength against modern threats.
-        </p>
-        <a href="#generate" class="bg-blue-600 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-700 transition">
-          Get Started Now
-        </a>
-      </div>
-      <div class="text-center">
-        <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Secure Passwords" class="w-80 mx-auto" />
-      </div>
-    </div>
-  </section>
+<!-- Home -->
+<section class="p-10 text-center">
+  <h1 class="text-3xl font-bold mb-4">Protect Your Passwords</h1>
+  <p class="mb-6">Generate and test password strength بسهولة</p>
 
-  <!-- Password Generator -->
-  <section id="generate" class="py-20 bg-white px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-blue-700 mb-4">Password Generator</h2>
-      <p class="text-gray-600 mb-8">Generate strong and secure passwords tailored to your needs.</p>
-      <div class="bg-blue-50 p-6 rounded-lg shadow-md text-left">
-        <div class="generator space-y-6">
-          <div class="password flex items-center gap-4">
-            <input type="text" id="generatedPassword" readonly class="w-full p-3 border rounded" />
-            <button id="copyButton" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Copy</button>
-          </div>
+  <a href="#generate" class="bg-blue-600 text-white px-4 py-2 rounded">Generate</a>
+  <a href="#strength" class="bg-green-600 text-white px-4 py-2 rounded ml-2">Analyze</a>
+</section>
 
-          <div class="range flex items-center gap-4">
-            <label for="passwordLength" class="font-medium">Length:</label>
-            <input type="range" min="1" max="15" value="12" id="passwordLength" class="w-full" />
-            <span id="passwordLengthValue" class="font-semibold">12</span>
-          </div>
+<!-- Generator -->
+<section id="generate" class="p-10 bg-white">
+  <h2 class="text-2xl font-bold mb-4">Password Generator</h2>
 
-          <div class="options grid grid-cols-2 gap-4">
-            <label class="option flex items-center gap-2">
-              <input type="checkbox" id="lowercaseCb" checked />
-              <span>a-z</span>
-            </label>
-            <label class="option flex items-center gap-2">
-              <input type="checkbox" id="uppercaseCb" checked />
-              <span>A-Z</span>
-            </label>
-            <label class="option flex items-center gap-2">
-              <input type="checkbox" id="digitsCb" checked />
-              <span>0-9</span>
-            </label>
-            <label class="option flex items-center gap-2">
-              <input type="checkbox" id="specialsCb" checked />
-              <span>!@#$%^</span>
-            </label>
-          </div>
+  <input id="generatedPassword" class="border p-2 w-full mb-4" readonly>
 
-          <div class="text-center pt-4">
-            <button onclick="generatePassword()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Generate</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <button onclick="generatePassword()" class="bg-blue-600 text-white px-4 py-2 rounded">
+    Generate Password
+  </button>
+</section>
 
-  <!-- Password Strength Checker -->
-  <section id="strength" class="py-20 bg-white px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-blue-700 mb-4">Password Strength Checker</h2>
-      <p class="text-gray-600 mb-6">Analyze your password's strength and security level.</p>
-      <div class="bg-blue-50 p-6 rounded-lg shadow-md text-left">
-        <div class="space-y-4">
-          <input type="password" id="password" placeholder="Enter your password" class="w-full p-3 border rounded" />
-          <button id="analyzeBtn" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Analyze Password</button>
-          <div id="results" class="mt-6 space-y-2">
-            <p><strong>Strength:</strong> <span id="strengthDisplay">-</span></p>
-            <p><strong>Entropy:</strong> <span id="entropy">-</span></p>
-            <p><strong>Estimated Crack Time:</strong> <span id="crackTime">-</span></p>
-            <p><strong>Dictionary Match?</strong> <span id="dictionaryMatch">-</span></p>
-            <p><strong>Similar to Common Password?</strong> <span id="similarToCommon">-</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Strength -->
+<section id="strength" class="p-10">
+  <h2 class="text-2xl font-bold mb-4">Password Strength Checker</h2>
 
-  <section class="py-20 bg-white px-6">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-blue-700 text-center mb-10">Explore Password Tips</h2>
-  
-      <div class="space-y-4">
-        <!-- Accordion Item 1 -->
-        <div class="border rounded-lg">
-          <button class="w-full text-left px-6 py-4 font-semibold text-blue-800 hover:bg-blue-50" onclick="toggleAccordion('item1')">
-            ➕ Tips for Strong Passwords
-          </button>
-          <div id="item1" class="hidden px-6 py-4 bg-blue-50 text-gray-700">
-            <a href="tips.html" target="_blank" class="text-blue-600 underline">Open Tips for Strong Passwords</a>
-          </div>
-        </div>
-  
-        <!-- Accordion Item 2 -->
-        <div class="border rounded-lg">
-          <button class="w-full text-left px-6 py-4 font-semibold text-blue-800 hover:bg-blue-50" onclick="toggleAccordion('item2')">
-            ➕ Password Strength Best Practices
-          </button>
-          <div id="item2" class="hidden px-6 py-4 bg-blue-50 text-gray-700">
-            <a href="best-practices.html" target="_blank" class="text-blue-600 underline">Open Best Practices</a>
-          </div>
-        </div>
-  
-        <!-- Accordion Item 3 -->
-        <div class="border rounded-lg">
-          <button class="w-full text-left px-6 py-4 font-semibold text-blue-800 hover:bg-blue-50" onclick="toggleAccordion('item3')">
-            ➕ 🔒 Password Strength Test Chart
-          </button>
-          <div id="item3" class="hidden px-6 py-4 bg-blue-50 text-gray-700">
-            <a href="chart.html" target="_blank" class="text-blue-600 underline">Open Password Chart</a>
-          </div>
-        </div>
-  
-        <!-- Accordion Item 4 -->
-        <div class="border rounded-lg">
-          <button class="w-full text-left px-6 py-4 font-semibold text-blue-800 hover:bg-blue-50" onclick="toggleAccordion('item4')">
-            ➕ Best Ideas for Password
-          </button>
-          <div id="item4" class="hidden px-6 py-4 bg-blue-50 text-gray-700">
-            <a href="ideas.html" target="_blank" class="text-blue-600 underline">Open Best Ideas</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-      <footer class="bg-blue-600 text-white text-center py-6">
-        <p>&copy; 2025 It Project. All rights reserved.</p>
-      
-  
-  
-  <script>
-    function toggleAccordion(id) {
-      const el = document.getElementById(id);
-      el.classList.toggle('hidden');
-    }
-  </script>
-  
-  </footer>
-      
-  <!-- Footer -->
-  <footer class="bg-blue-600 text-white text-center py-6">
-    <p>&copy; 2025 IT Project. All rights reserved.</p>
-  </footer>
+  <input type="password" id="password" class="border p-2 w-full mb-4" placeholder="Enter password">
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const passwordLengthSlider = document.getElementById("passwordLength");
-      const passwordLengthValue = document.getElementById("passwordLengthValue");
-      const outputField = document.getElementById("generatedPassword");
+  <button onclick="analyzePassword()" class="bg-green-600 text-white px-4 py-2 rounded">
+    Analyze
+  </button>
 
-      passwordLengthSlider.addEventListener("input", function () {
-        passwordLengthValue.textContent = this.value;
-      });
+  <div class="mt-4">
+    <p>Strength: <span id="strengthDisplay">-</span></p>
+    <p>Crack Time: <span id="crackTime">-</span></p>
+  </div>
+</section>
 
-      document.getElementById("copyButton").addEventListener("click", function () {
-        outputField.select();
-        document.execCommand("copy");
-      });
+<!-- Tips -->
+<section id="tips" class="p-10 bg-white">
+  <h2 class="text-2xl font-bold mb-4">🔐 Tips</h2>
+  <ul class="list-disc pl-6">
+    <li>Use 12+ characters</li>
+    <li>Mix letters, numbers, symbols</li>
+    <li>Don't reuse passwords</li>
+  </ul>
+</section>
 
-      document.getElementById("analyzeBtn")?.addEventListener("click", analyzePassword);
-    });
+<!-- Best -->
+<section id="best" class="p-10">
+  <h2 class="text-2xl font-bold mb-4">📊 Best Practices</h2>
+  <ul class="list-disc pl-6">
+    <li>Use password manager</li>
+    <li>Enable 2FA</li>
+    <li>Avoid common words</li>
+  </ul>
+</section>
 
-    function generatePassword() {
-      let dictionary = "";
-      if (document.getElementById("lowercaseCb")?.checked) dictionary += "abcdefghijklmnopqrstuvwxyz";
-      if (document.getElementById("uppercaseCb")?.checked) dictionary += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      if (document.getElementById("digitsCb")?.checked) dictionary += "0123456789";
-      if (document.getElementById("specialsCb")?.checked) dictionary += "!@#$%^&*()_+-={}[];<>:";
+<!-- Chart -->
+<section id="chart" class="p-10 bg-white">
+  <h2 class="text-2xl font-bold mb-4">📈 Chart</h2>
+  <table class="border w-full">
+    <tr class="bg-gray-200">
+      <th class="p-2">Password</th>
+      <th class="p-2">Strength</th>
+    </tr>
+    <tr>
+      <td class="p-2">123456</td>
+      <td class="p-2">Weak</td>
+    </tr>
+    <tr>
+      <td class="p-2">P@ssw0rd!</td>
+      <td class="p-2">Strong</td>
+    </tr>
+  </table>
+</section>
 
-      if (!dictionary) {
-        alert("Please select at least one character type!");
-        return;
-      }
+<!-- Ideas -->
+<section id="ideas" class="p-10">
+  <h2 class="text-2xl font-bold mb-4">💡 Ideas</h2>
+  <ul class="list-disc pl-6">
+    <li>BlueSky!2025</li>
+    <li>Coffee_Table#9</li>
+    <li>MyDog@Home12</li>
+  </ul>
+</section>
 
-      const length = parseInt(document.getElementById("passwordLength")?.value || "12", 10);
-      let password = "";
-      for (let i = 0; i < length; i++) {
-        const pos = Math.floor(Math.random() * dictionary.length);
-        password += dictionary[pos];
-      }
+<!-- Footer -->
+<footer class="bg-blue-600 text-white text-center p-4">
+  © 2025 Password Project
+</footer>
 
-      document.getElementById("generatedPassword").value = password;
-    }
+<script>
+function generatePassword() {
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+  let password = "";
+  for (let i = 0; i < 12; i++) {
+    password += chars[Math.floor(Math.random() * chars.length)];
+  }
+  document.getElementById("generatedPassword").value = password;
+}
 
-    function analyzePassword() {
-      const password = document.getElementById("password").value;
-      const result = zxcvbn(password);
+function analyzePassword() {
+  const password = document.getElementById("password").value;
+  const result = zxcvbn(password);
 
-      document.getElementById("strengthDisplay").innerText = result.score;
-      document.getElementById("entropy").innerText = (password.length * Math.log2(94)).toFixed(2);
-      document.getElementById("crackTime").innerText = result.crack_times_display.offline_slow_hashing_1e4_per_second;
-      document.getElementById("dictionaryMatch").innerText = ["password", "123456", "qwerty", "abc123", "admin"].includes(password.toLowerCase()) ? "Yes" : "No";
-      document.getElementById("similarToCommon").innerText = result.score < 2 ? "Yes" : "No";
-    }
-  </script>
+  document.getElementById("strengthDisplay").innerText = result.score;
+  document.getElementById("crackTime").innerText = result.crack_times_display.offline_slow_hashing_1e4_per_second;
+}
+</script>
+
 </body>
 </html>
